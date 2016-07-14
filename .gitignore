@@ -7,6 +7,11 @@
 *.sql
 *.sqlite
 
+# Compiled CSS and JS
+#####################
+public/js/*
+public/css/*
+
 .DS_STORE
 node_modules
 *~

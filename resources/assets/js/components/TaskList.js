@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { connect, PromiseState } from 'react-refetch';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import PromiseStateContainer from './PromiseStateContainer'
 import Task from './Task';
-import {GridList} from 'material-ui/GridList';
+import AddTaskForm from './forms/AddTaskForm'
+
+const floatingButtonStyle = {
+    float: 'right'
+};
 
 var TaskList = React.createClass({
+
+    handleFloatingAction: function () {
+        this.refs.addTaskFrom.handleOpen();
+    },
 
     render() {
         return (
@@ -22,6 +32,14 @@ var TaskList = React.createClass({
                     backgroundColor: '#EEEEEE'
                   }}
                 >
+                    <FloatingActionButton
+                        mini={true}
+                        style={floatingButtonStyle}
+                        onTouchTap={this.handleFloatingAction}
+                    >
+                        <ContentAdd />
+                    </FloatingActionButton>
+                    <AddTaskForm ref="addTaskFrom"/>
                 </CardHeader>
                 <PromiseStateContainer
                     ps={PromiseState.all([this.props.tasksFetch])}
