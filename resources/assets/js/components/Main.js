@@ -1,24 +1,17 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import TaskList from './TaskList';
 
-const Main = () => (
-  <MuiThemeProvider>
-      <Card>
-        <CardHeader
-          title="Without Avatar"
-          subtitle="Subtitle"
-          actAsExpander={true}
-          showExpandableButton={true}
-          style={{
-            fontWeight: 'bold'
-          }}
-        />
-        <CardText expandable={true}>
-          Starter
-        </CardText>
-      </Card>
-  </MuiThemeProvider>
-);
+var Main = React.createClass({
+    render() {
+        return (
+            <div className="container">
+                <MuiThemeProvider>
+                    <TaskList/>
+                </MuiThemeProvider>
+            </div>
+        )
+    }
+});
+
 export default Main;

@@ -1,6 +1,11 @@
 /vendor
 .env
-.sqlite
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
 
 .DS_STORE
 node_modules
