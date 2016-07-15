@@ -34,6 +34,14 @@ var AddTaskForm = React.createClass({
         this.setState({description: e.target.value});
     },
 
+    getTaskObject: function () {
+        return {
+            name: this.state.name,
+            description: this.state.description,
+            picture_url: this.state.picture_url
+        }
+    },
+
     render () {
         const actions = [
             <FlatButton
@@ -42,9 +50,9 @@ var AddTaskForm = React.createClass({
                 onTouchTap={this.handleClose}
             />,
             <PostTaskForm
-                name={this.state.name}
-                description={this.state.description}
+                task={this.getTaskObject()}
                 close={this.handleClose}
+                onTaskAdded={this.props.onTaskAdded}
             />
         ];
         return (

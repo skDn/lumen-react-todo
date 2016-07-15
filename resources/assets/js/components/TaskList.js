@@ -13,8 +13,24 @@ const floatingButtonStyle = {
 
 var TaskList = React.createClass({
 
+    getInitialState: function () {
+        return {
+            tasks: [],
+            id: Math.floor((Math.random() * 1000) + 1)
+        }
+    },
+
     handleFloatingAction: function () {
         this.refs.addTaskFrom.handleOpen();
+    },
+
+    onTaskAdded: function (task) {
+        // TODO: pass valid key
+        this.state.tasks.push(
+            <Task task={task} key={this.state.id}/>
+        );
+        this.forceUpdate();
+        this.setState({id: this.state.id + 1});
     },
 
     render() {
@@ -39,7 +55,7 @@ var TaskList = React.createClass({
                     >
                         <ContentAdd />
                     </FloatingActionButton>
-                    <AddTaskForm ref="addTaskFrom"/>
+                    <AddTaskForm ref="addTaskFrom" onTaskAdded={this.onTaskAdded}/>
                 </CardHeader>
                 <PromiseStateContainer
                     ps={PromiseState.all([this.props.tasksFetch])}
@@ -55,6 +71,7 @@ var TaskList = React.createClass({
                       )
                     }}
                 />
+                {this.state.tasks}
             </Card>
         )
     }

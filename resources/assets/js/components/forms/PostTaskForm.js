@@ -5,11 +5,22 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 var PostTaskForm = React.createClass({
+    propTypes : {
+        postTaskResponse: PropTypes.instanceOf(PromiseState)
+    },
 
     postTask: function () {
-        this.props.postTask({name: this.props.name, description: this.props.description, picture_url: 'no pic yet'});
+        this.props.postTask(this.props.task);
+        // does not work for some reason, raised an issue on the github page
+        //this.checkResponse();
+        this.props.onTaskAdded(this.props.task);
         this.props.close();
     },
+
+    //checkResponse: function () {
+    //    console.log(this.props.postTaskResponse);
+    //    console.log(this.postTaskResponse);
+    //},
 
     render() {
         return (
