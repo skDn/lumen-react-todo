@@ -63,6 +63,7 @@ var TaskList = React.createClass({
                       return (
                         <div>
                           {tasks.map((task) => {
+                            task['completed'] = false;
                             return (
                                  <Task task={task} key={task.id}/>
                             )
