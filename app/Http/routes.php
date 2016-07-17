@@ -26,5 +26,22 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('task', 'TasksController@add');
     $app->put('task/{id}', 'TasksController@put');
     $app->delete('task/{id}', 'TasksController@remove');
-});
 
+    /**
+     * Routes for resource users
+     */
+    $app->get('user', 'UsersController@all');
+    $app->get('user/{id}', 'UsersController@get');
+    $app->post('user', 'UsersController@add');
+    $app->put('user/{id}', 'UsersController@put');
+    $app->delete('user/{id}', 'UsersController@remove');
+
+    /**
+     * Routes for resource comment
+     */
+    $app->get('comment', 'CommentsController@all');
+    $app->get('comment/{id}', 'CommentsController@get');
+    $app->post('comment', 'CommentsController@add');
+    $app->put('comment/{id}', 'CommentsController@put');
+    $app->delete('comment/{id}', 'CommentsController@remove');
+});
