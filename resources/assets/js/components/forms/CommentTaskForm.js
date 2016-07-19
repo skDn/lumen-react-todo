@@ -1,19 +1,29 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import { connect, PromiseState } from 'react-refetch'
+import CommentList from '../CommentList'
+import Comment from '../Comment';
+
 
 const styles = {
     rightIcon: {
         float: 'right'
+    },
+    zeroWidth: {
+        width: ''
+    },
+    hideElement: {
+        display: "none"
     }
 };
 
 var CommentTaskForm = React.createClass({
     getInitialState: function () {
         return {
-            comment: ''
+            comment: '',
+            comments: [],
+            id: Math.floor((Math.random() * 10000) + 1)
         }
     },
 
@@ -26,7 +36,11 @@ var CommentTaskForm = React.createClass({
     },
 
     postComment: function () {
+        // post the comment
         this.props.postComment(this.getComment());
+        // update UI
+        this.onCommentAdded(this.getComment());
+        // remove text from comment form field
         this.resetComment();
         // does not work for some reason, raised an issue on the github page
         //this.checkResponse();
@@ -40,22 +54,37 @@ var CommentTaskForm = React.createClass({
         }
     },
 
+    onCommentAdded: function (comment) {
+        // TODO: pass valid key
+        this.state.comments.unshift(
+            <Comment key={this.state.id} comment={comment} animated={true}/>
+        );
+        this.forceUpdate();
+        this.setState({id: this.state.id + 1});
+    },
+
     render()  {
         return (
-            <Card expanded={this.props.expanded}>
-                <CardActions expandable={true}>
+            <div style={(this.props.expanded) ? null : styles.hideElement}>
+                <div className="row">
                     <TextField
                         floatingLabelText="Comment"
                         hintText="Write something here .."
                         value={this.state.comment}
                         onChange={this.handleCommentChange}
                         //fullWidth={true}
+                        className="col-xs-9 col-md-9 m-l-1"
                         multiLine={true}
                         rowsMax={2}
+                        style={styles.zeroWidth}
                     />
-                    <RaisedButton label="Send" primary={true} style={styles.rightIcon} onTouchTap={this.postComment}/>
-                </CardActions>
-            </Card>
+                    <FlatButton label="Send" primary={true} style={styles.rightIcon} onTouchTap={this.postComment}
+                                className="col-xs-2 col-md-2"/>
+                </div>
+                <div className="row">
+                    <CommentList task={this.props.task} comment={this.getComment()} ref='commentList' newComments={this.state.comments}/>
+                </div>
+            </div>
         )
     }
 });

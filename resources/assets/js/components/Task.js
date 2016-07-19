@@ -19,6 +19,9 @@ const styles = {
     completed: {
         textDecoration: "line-through"
     },
+    full: {
+        width: '100%'
+    },
     spaceCards: {
         margin: 20
     },
@@ -59,24 +62,23 @@ var Task = React.createClass({
         console.log(expanded);
     },
 
-    toggleCommentCard: function() {
-        this.setState({commentExpanded:true})
+    toggleComments: function () {
+        this.setState({commentExpanded: (this.state.commentExpanded) ? false : true})
     },
 
     render() {
         return (
             <Card style={styles.spaceCards}>
-                <CardHeader
-                    title={<Checkbox
-                             label={this.props.task.name}
-                             ref="completedCheckbox"
-                             style={this.state.nameStyle}
-                             checked={this.state.checked}
-                             onCheck={this.handleOnComplete}
-                        />}
-                    showExpandableButton={true}
-                >
-                </CardHeader>
+
+                <div className="fullWidth">
+                    <Checkbox
+                        label={this.props.task.name}
+                        ref="completedCheckbox"
+                        style={this.state.nameStyle}
+                        checked={this.state.checked}
+                        onCheck={this.handleOnComplete}
+                    />
+                </div>
 
                 <CardText expandable={true}>
                     {this.props.task.description}
@@ -85,26 +87,19 @@ var Task = React.createClass({
                 <Divider/>
 
                 <CardActions>
-                    <IconButton tooltip="Delete">
-                        <Delete />
-                    </IconButton>
-                    <Chip
-                        style={Object.assign({}, styles.rightIcon, styles.chip)}
-                    >
+                    <Chip style={Object.assign({}, styles.rightIcon, styles.chip)}>
                         12
                     </Chip>
                     <IconButton
                         tooltip="Comment"
                         style={styles.rightIcon}
-                        onTouchTap={this.toggleCommentCard}
+                        onTouchTap={this.toggleComments}
                     >
                         <Comment/>
                     </IconButton>
                 </CardActions>
                 <Divider/>
-
-                <CommentTaskForm task={this.props.task}  expanded={this.state.commentExpanded}/>
-
+                <CommentTaskForm task={this.props.task} expanded={this.state.commentExpanded}/>
             </Card>
         )
     }

@@ -17,9 +17,10 @@ trait RESTActions
     {
         $m = self::MODEL;
         $model = null;
-
+        // TODO: extract this functionality to another route task/{id}/comment
         if ($m === 'App\Comment') {
-            $model = $m::where('task_id', $id);
+            $model = $m::where('task_id', $id)->orderBy('created_at', 'desc')
+                ->take(10)->get();
         } else {
             $model = $m::find($id);
         }
@@ -35,6 +36,7 @@ trait RESTActions
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
         if ($m === 'App\Comment') {
+            // TODO: change this after auth is implemented
             $request['user_id'] = 1;
         }
         return $this->respond(Response::HTTP_CREATED, $m::create($request->all()));
