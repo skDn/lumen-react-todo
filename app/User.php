@@ -3,16 +3,16 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
-use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements
     AuthenticatableContract,
-    AuthorizableContract
+    CanResetPasswordContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,7 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'picture_url'
+        'username', 'email', 'password', 'picture_url', 'active'
     ];
 
     /**

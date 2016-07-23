@@ -11,13 +11,24 @@
 |
 */
 
-$app->get('/', function () use ($app) {
+$app->get('/', [ 'middleware' => 'auth' , function () use ($app) {
     return view('index');
-});
+}]);
+
+$app->get('auth/log', ['uses' => 'Auth\AuthController@getLog']);
+$app->post('auth/login', ['uses' => 'Auth\AuthController@postLogin']);
+$app->get('auth/logout', ['uses' => 'Auth\AuthController@getLogout']);
+$app->get('auth/register', ['uses' => 'Auth\AuthController@getRegister']);
+$app->post('auth/register', ['uses' => 'Auth\AuthController@postRegister']);
+
+$app->get('password/email', ['uses' => 'Auth\PasswordController@getEmail']);
+$app->post('password/email', ['uses' => 'Auth\PasswordController@postEmail']);
+$app->get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset']);
+$app->post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
 
 
 
-$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
     /**
      * Routes for resource task
      */

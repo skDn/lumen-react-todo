@@ -1,9 +1,10 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Auth;
 
-class Authenticate {
+class RedirectIfAuthenticated {
 
     /**
      * Handle an incoming request.
@@ -14,17 +15,9 @@ class Authenticate {
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guest())
+        if (Auth::check())
         {
-            if ($request->ajax())
-            {
-                return response('Unauthorized.', 401);
-            }
-            else
-            {
-                // return redirect()->guest('auth/login');
-                return redirect('auth/register');
-            }
+            return new RedirectResponse(url('/home'));
         }
 
         return $next($request);
