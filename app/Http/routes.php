@@ -11,9 +11,9 @@
 |
 */
 
-$app->get('/', [ 'middleware' => 'auth' , function () use ($app) {
+$app->get('/', function () use ($app) {
     return view('index');
-}]);
+});
 
 $app->get('auth/log', ['uses' => 'Auth\AuthController@getLog']);
 $app->post('auth/login', ['uses' => 'Auth\AuthController@postLogin']);
@@ -28,7 +28,7 @@ $app->post('password/reset', ['uses' => 'Auth\PasswordController@postReset']);
 
 
 
-$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () use ($app) {
+$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
     /**
      * Routes for resource task
      */

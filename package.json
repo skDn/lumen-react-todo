@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "formsy-material-ui": "^0.4.3",
+    "formsy-react": "^0.18.1",
     "laravel-elixir": "^6.0.0-9",
     "laravel-elixir-livereload": "^1.1.6",
     "material-ui": "^0.15.2",

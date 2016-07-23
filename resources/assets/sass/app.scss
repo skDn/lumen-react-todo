@@ -6,3 +6,10 @@
 .fullWidth {
   padding: 16px; font-weight: 500; box-sizing: border-box; position: relative; white-space: nowrap; width: 100%;
 }
+.centerLoading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
